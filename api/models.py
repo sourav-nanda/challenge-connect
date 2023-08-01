@@ -16,6 +16,7 @@ class Hackathon(models.Model):
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
     reward_prize = models.CharField(max_length=100)
+    enrolled_users = models.ManyToManyField(User, related_name='enrolled_hackathons', blank=True)
 
     def __str__(self):
         return self.title

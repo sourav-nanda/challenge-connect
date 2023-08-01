@@ -3,19 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome to Main App</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>ChallengeConnect</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Link to your custom CSS -->
-    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'index.css' %}"> -->
 </head>
 <body>
 
     <div class="main-content">
-        <h1 class="logo">Welcome to ChallengeConnect</h1>
+        <h1 class="logo">ChallengeConnect</h1>
         
-
-        <!-- Buttons -->
         <div class="buttons">
             <a href="{% url 'hackathon-feed' %}" class="btn">View Hackathons</a>
             <a href="{% url 'hackathon-create' %}" class="btn">Create Hackathon</a>
@@ -28,7 +25,20 @@
         </div>
     </div>
 
-    <!-- Include Materialize JavaScript -->
+    <style>
+        
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .buttons .btn {
+            margin: 5px;
+        }
+    </style>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

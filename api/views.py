@@ -2,6 +2,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Hackathon, Submission
 from .serializers import HackathonSerializer, SubmissionSerializer, UserSerializer
@@ -12,24 +13,23 @@ from .forms import hackathon_form
 from django.http import HttpResponseForbidden
 
 
+@api_view(['GET'])
 def hackathon_feed(request):
     hackathons = Hackathon.get_all_hackathons()
-    return render(request, 'hackathon_feed.html', {'hackathons': hackathons})
+    serializer = HackathonSerializer(hackathons, many=True)
+    return Response(serializer.data)
 
-  
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def hackathon_create(request):
     if not request.user.is_staff:  # staff are superusers/admins
-        return redirect('unauthorized')
+        return Response({'message': 'You are not authorized to create hackathons.'}, status=status.HTTP_403_FORBIDDEN)
 
-    if request.method == 'POST':
-        form = hackathon_form(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('hackathon-feed')  # Redirect to the hackathon feed page after successful creation
-    else:
-        form = hackathon_form()
-
-    return render(request, 'create_hackathon.html', {'form': form})
+    serializer = HackathonSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -70,12 +70,22 @@ def submission_user(request, user_id):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def user_registration(request):
-    serializer = UserSerializer(data=request.data)
-    if serializer.is_valid():
-        user = serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@login_required
+def user_registration(request, hackathon_id):
+    try:
+        hackathon = Hackathon.objects.get(pk=hackathon_id)
+        user = request.user
+
+        # Check if the user is already enrolled in the hackathon
+        if hackathon.enrolled_users.filter(pk=user.pk).exists():
+            return Response({'message': 'You are already enrolled in this hackathon.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Register the user for the hackathon
+        hackathon.enrolled_users.add(user)
+        return Response({'message': 'Enrollment successful!'}, status=status.HTTP_201_CREATED)
+
+    except Hackathon.DoesNotExist:
+        return Response({'message': 'Hackathon not found'}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 def user_login(request):
