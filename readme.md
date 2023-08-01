@@ -4,9 +4,9 @@
 
 ChallengeConnect is a versatile solution that serves as a consumable API to streamline building a hackathon hosting  application. With ChallengeConnect, organizers can effortlessly create and manage hackathons, specifying details like title, dates, and rewards. Participants can easily enroll in hackathons, submit their innovative solutions, and view a feed of available hackathons. The API ensures secure user registration and authentication, allowing only authorized individuals to create hackathons. It offers a seamless experience for both organizers and participants, fostering a thriving community of tech enthusiasts and problem solvers.
 
-## Local Setup 
+## Local Setup               
 
-1. Install Python (3.6 or higher).
+1. Install Python (3.6 or higher)
 2. Create a virtual environment using your choice of tool.
 E.g. `python -m venv your_venv_name`
 3. Clone this repository: `https://github.com/sourav-nanda/challenge-connect.git`.
@@ -19,12 +19,13 @@ E.g. `python -m venv your_venv_name`
 
 1. Run the development server: `python manage.py runserver` or `source run.sh`.
 2. Access the API at `http://localhost:8000/`.
+3. Check examples to know how to access the endpoints.
 
 ```Note cloud endpoints will be added after deployment.```
 
 
 
-## Consuming as a REST API
+  ## Consuming as a REST API
 
 Use tools like `curl`, `Postman`, or programming libraries (e.g., `requests` in Python) to make HTTP requests to the API endpoints.
 
