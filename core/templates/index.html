@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome to Main App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Link to your custom CSS -->
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+
+    <div class="main-content">
+        <h1 class="logo">Welcome to ChallengeConnect</h1>
+        
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <a href="{% url 'hackathon-feed' %}" class="btn">View Hackathons</a>
+            <a href="{% url 'hackathon-create' %}" class="btn">Create Hackathon</a>
+            <a href="{% url 'enroll-hackathon' hackathon_id=1 %}" class="btn">Enroll in Hackathon</a>
+            <a href="{% url 'submission-create' %}" class="btn">Create Submission</a>
+            <a href="{% url 'user-registration' %}" class="btn">User Registration</a>
+            <a href="{% url 'user-login' %}" class="btn">User Login</a>
+            <a href="{% url 'enrolled-hackathons' %}" class="btn">Enrolled Hackathons</a>
+            <a href="{% url 'user-submissions' user_id=1 %}" class="btn">User Submissions</a>
+        </div>
+    </div>
+
+    <!-- Include Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

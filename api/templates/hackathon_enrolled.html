@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enrolled Hackathons</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Sidebar content -->
+        <!-- ... -->
+    </div>
+
+    <div class="main-content">
+        <h1 class="logo">Enrolled Hackathons</h1>
+        <p class="subtext">View the hackathons you are enrolled in.</p>
+
+        <!-- Enrolled Hackathons List -->
+        <ul class="enrolled-hackathon-list">
+            {% for hackathon in enrolled_hackathons %}
+            <li>
+                <h2>{{ hackathon.title }}</h2>
+                <p>{{ hackathon.description }}</p>
+                <!-- Add other enrolled hackathon details here -->
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

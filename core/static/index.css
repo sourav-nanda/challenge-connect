@@ -1,0 +1,50 @@
+body {
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 48px;
+    color: #333; /* Dark Grey */
+    margin-bottom: 10px;
+}
+
+.subtext {
+    font-size: 24px;
+    color: #666; /* Light Grey */
+}
+
+/* Buttons */
+.btn {
+    background-color: #f9f9f9;
+    color: #333; /* Dark Grey */
+    border: 1px solid #ccc; /* Light Grey */
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:hover {
+    background-color: #333; /* Dark Grey */
+    color: #f9f9f9;
+}
+
+/* Links */
+a {
+    color: #2196F3; /* Material Design Blue */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
