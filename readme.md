@@ -2,7 +2,9 @@
 
 ## About
 
-## Setup 
+ChallengeConnect is a versatile solution that serves as a consumable API to streamline building a hackathon hosting  application. With ChallengeConnect, organizers can effortlessly create and manage hackathons, specifying details like title, dates, and rewards. Participants can easily enroll in hackathons, submit their innovative solutions, and view a feed of available hackathons. The API ensures secure user registration and authentication, allowing only authorized individuals to create hackathons. It offers a seamless experience for both organizers and participants, fostering a thriving community of tech enthusiasts and problem solvers.
+
+## Local Setup 
 
 1. Install Python (3.6 or higher).
 2. Create a virtual environment using your choice of tool.
@@ -10,7 +12,17 @@ E.g. `python -m venv your_venv_name`
 3. Clone this repository: `https://github.com/sourav-nanda/challenge-connect.git`.
 4. Navigate to the project directory:
 `cd challenge-connect-master`.
-5. Install the required dependencies:`pip install -r requirements.txt`.
+5. Install the required dependencies: `pip install -r requirements.txt`.
+
+
+## Usage
+
+1. Run the development server: `python manage.py runserver` or `source run.sh`.
+2. Access the API at `http://localhost:8000/`.
+
+```Note cloud endpoints will be added after deployment.```
+
+
 
 ## Consuming as a REST API
 
@@ -40,11 +52,4 @@ The API follows the RESTful architecture and includes endpoints for creating and
 - `/submissions/create/<int:hackathon_id>/`: POST - Submit an entry for a hackathon (submission_create).
 - `/submissions/user/<int:user_id>/`: GET - View list of user submissions (submission_user).
 - `/unauthorized/`: GET - Display unauthorized access message (unauthorized).
-
-## Usage
-
-1. Run the development server: `python manage.py runserver` or `source run.sh`.
-2. Access the API at `http://localhost:8000/` if hosted locally.
-
-```Note cloud endpoints will be updated after deployment.```
 
