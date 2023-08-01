@@ -42,7 +42,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'core.urls'
 BASE_DIR=os.path.dirname(os.path.dirname(os.path.abspath(__file__))) 
-print(os.path.join(BASE_DIR,'api','templates','errors'))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
