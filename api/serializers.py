@@ -18,6 +18,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 class HackathonSerializer(serializers.ModelSerializer):
+    enrolled_users = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     class Meta:
         model = Hackathon
         fields = '__all__'
