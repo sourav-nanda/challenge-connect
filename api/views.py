@@ -2,15 +2,12 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 from .models import Hackathon, Submission
 from .serializers import HackathonSerializer, SubmissionSerializer, UserSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from .forms import hackathon_form
-from django.http import HttpResponseForbidden
+
 
 
 @api_view(['GET'])
@@ -56,13 +53,23 @@ def hackathon_enrolled(request):
     return Response(serializer.data)
 
 @api_view(['POST'])
-def submission_create(request):
-    serializer = SubmissionSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+def submission_create(request, hackathon_id):
+    try:
+        hackathon = Hackathon.objects.get(pk=hackathon_id)
+        user = request.user
 
+        # Check if the user is enrolled in the hackathon before allowing submission
+        if not hackathon.enrolled_users.filter(pk=user.pk).exists():
+            return Response({'message': 'You are not enrolled in this hackathon.'}, status=status.HTTP_403_FORBIDDEN)
+
+        serializer = SubmissionSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(hackathon=hackathon, user=user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    except Hackathon.DoesNotExist:
+        return Response({'message': 'Hackathon not found'}, status=status.HTTP_404_NOT_FOUND)
 @api_view(['GET'])
 def submission_user(request, user_id):
     user_submissions = Submission.get_user_submissions(user_id)
@@ -70,7 +77,6 @@ def submission_user(request, user_id):
     return Response(serializer.data)
 
 @api_view(['POST'])
-@login_required
 def user_registration(request, hackathon_id):
     try:
         hackathon = Hackathon.objects.get(pk=hackathon_id)
@@ -100,4 +106,4 @@ def user_login(request):
     
 @api_view(['GET'])
 def unauthorized(request):
-    return render(request, 'unauthorized.html',status=403)
+    return Response(status=status.HTTP_403_FORBIDDEN)
