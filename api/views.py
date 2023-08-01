@@ -76,34 +76,6 @@ def submission_user(request, user_id):
     serializer = SubmissionSerializer(user_submissions, many=True)
     return Response(serializer.data)
 
-@api_view(['POST'])
-def user_registration(request, hackathon_id):
-    try:
-        hackathon = Hackathon.objects.get(pk=hackathon_id)
-        user = request.user
-
-        # Check if the user is already enrolled in the hackathon
-        if hackathon.enrolled_users.filter(pk=user.pk).exists():
-            return Response({'message': 'You are already enrolled in this hackathon.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Register the user for the hackathon
-        hackathon.enrolled_users.add(user)
-        return Response({'message': 'Enrollment successful!'}, status=status.HTTP_201_CREATED)
-
-    except Hackathon.DoesNotExist:
-        return Response({'message': 'Hackathon not found'}, status=status.HTTP_404_NOT_FOUND)
-
-@api_view(['POST'])
-def user_login(request):
-    username = request.data.get('username')
-    password = request.data.get('password')
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return Response({'message': 'Login successful!'}, status=status.HTTP_200_OK)
-    else:
-        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-    
 @api_view(['GET'])
 def unauthorized(request):
     return Response(status=status.HTTP_403_FORBIDDEN)

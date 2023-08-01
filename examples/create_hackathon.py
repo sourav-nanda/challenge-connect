@@ -2,7 +2,9 @@ import requests
 from pprint import pprint
 from requests.auth import HTTPBasicAuth
 
-endpoint = 'http://localhost:8000/api/hackathons/create/'
+source='http://localhost:8000' #Change the source after deploying in AWS
+route = '/api/hackathons/create/'
+endpoint=source+route
 
 auth = HTTPBasicAuth('admin', 'admin')
 
