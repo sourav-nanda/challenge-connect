@@ -9,8 +9,8 @@ endpoint=source+route
 auth = HTTPBasicAuth('admin', 'admin')
 
 files = {
-    'background_image': open(r"C:\Users\Sourav\Downloads\challengeConnect_logo.png", 'rb'),
-    'hackathon_image': open(r"C:\Users\Sourav\Downloads\challengeConnect_logo.png", 'rb'),
+    'background_image': open(r"challengeConnect_logo.png", 'rb'),
+    'hackathon_image': open(r"challengeConnect_logo.png", 'rb'),
 }
 
 data = {

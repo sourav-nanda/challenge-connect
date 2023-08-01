@@ -70,6 +70,7 @@ def submission_create(request, hackathon_id):
 
     except Hackathon.DoesNotExist:
         return Response({'message': 'Hackathon not found'}, status=status.HTTP_404_NOT_FOUND)
+    
 @api_view(['GET'])
 def submission_user(request, user_id):
     user_submissions = Submission.get_user_submissions(user_id)
